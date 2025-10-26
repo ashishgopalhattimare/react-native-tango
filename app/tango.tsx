@@ -12,7 +12,7 @@ export const logo = require("@/assets/images/tango-logo.svg");
 export default function ModalScreen() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={styles.main}>
+      <ThemedView style={styles.main} isTransparent>
         <Image source={logo} style={styles.logo} />
         <ThemedText type="title">Tango</ThemedText>
         <ThemedText type="subtitle" size="type-400">

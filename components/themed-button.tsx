@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     color: "white"
   },
   tertiary: {
-    borderWidth: 1,
+    borderWidth: 2,
     backgroundColor: "white",
     color: "black"
   }
