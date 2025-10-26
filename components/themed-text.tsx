@@ -2,16 +2,25 @@ import { StyleSheet, Text, type TextProps } from 'react-native';
 
 import { useThemeColor } from '@/hooks/use-theme-color';
 
+type TextSize = "type-200" | "type-300" | "type-400";
+const TextSizeMapper : Record<TextSize, number> = {
+  "type-200": 10,
+  "type-300": 12,
+  "type-400": 14
+}
+
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  size?: TextSize;
 };
 
 export function ThemedText({
   style,
   lightColor,
   darkColor,
+  size,
   type = 'default',
   ...rest
 }: ThemedTextProps) {
@@ -27,6 +36,7 @@ export function ThemedText({
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'link' ? styles.link : undefined,
         style,
+        size ? { fontSize: TextSizeMapper[size], lineHeight: 16 } : undefined
       ]}
       {...rest}
     />
@@ -50,7 +60,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
   },
   link: {
     lineHeight: 30,
