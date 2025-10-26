@@ -9,7 +9,7 @@ import {
 
 export const logo = require("@/assets/images/tango-logo.svg");
 
-export default function ModalScreen() {
+export default function TangoHomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.main} isTransparent>

@@ -14,6 +14,9 @@ export default function RootLayout() {
         <Stack.Screen name="tango" options={{
           headerShown: false
         }} />
+        <Stack.Screen name="game" options={{
+          headerShown: false
+        }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
