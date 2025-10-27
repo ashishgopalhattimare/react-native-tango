@@ -41,7 +41,11 @@ export const TangoCell = ({ data, onChange }: Props) => {
     <ThemedView style={styles.cellLayout}>
       <ThemedButtonGraphic
         tag="Pressable"
-        style={[styles.cellLayout, styles.cell]}
+        style={[
+          styles.cellLayout,
+          styles.cell,
+          data.isInvalid ? styles.error_cell : null,
+        ]}
         theme={data.editable ? "tertiary" : "secondary"}
         disabled={!data.editable}
         onClick={onClickHandler}
@@ -49,12 +53,12 @@ export const TangoCell = ({ data, onChange }: Props) => {
         <Image source={image} style={styles.img} resizeMode="contain" />
       </ThemedButtonGraphic>
       {data.x_state && (
-        <ThemedText style={[styles.x_overlay, styles.state]} disabled={true}>
+        <ThemedText style={[styles.x_overlay, styles.state]}>
           {data.x_state}
         </ThemedText>
       )}
       {data.y_state && (
-        <ThemedText style={[styles.y_overlay, styles.state]} disabled={true}>
+        <ThemedText style={[styles.y_overlay, styles.state]}>
           {data.y_state}
         </ThemedText>
       )}
@@ -74,6 +78,9 @@ const styles = StyleSheet.create({
     margin: 1,
     paddingBlock: 8,
     paddingInline: 8,
+  },
+  error_cell: {
+    borderColor: "red",
   },
   img: {
     width: "100%",

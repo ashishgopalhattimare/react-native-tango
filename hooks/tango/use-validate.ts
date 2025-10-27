@@ -15,6 +15,12 @@ type ValidateCallbackType = (response: { data: Grid; n: number, errors: Record<s
 const cloneCell = (cell: Cell): Cell => JSON.parse(JSON.stringify(cell));
 const clone = (input: Grid): Grid => input.map(row => row.map(cloneCell));
 
+const reset = (grid: Grid) => {
+    grid.forEach(row => 
+        row.forEach(cell => cell.isInvalid = false)
+    );
+};
+
 const row_validate = (grid: Grid, errors: Record<string, string>) => {
     const n = grid.length;
 
@@ -53,7 +59,7 @@ const row_validate = (grid: Grid, errors: Record<string, string>) => {
             errors["2"] = "Each row and column must have the same number of O and X";
         }
     }
-}
+};
 
 const col_validate = (grid: Grid, errors: Record<string, string>) => {
     const n = grid.length;
@@ -93,7 +99,7 @@ const col_validate = (grid: Grid, errors: Record<string, string>) => {
             errors["2"] = "Each row and column must have the same number of O and X";
         }
     }
-}
+};
 
 export const useValidate = () => {
   const ref = useRef<number | null>(null);
@@ -101,9 +107,9 @@ export const useValidate = () => {
   const validate = useCallback((input: Grid, callback: ValidateCallbackType) => {
     const grid = clone(input);
 
-    const errors = {
-
-    }
+    const errors = {};
+    reset(grid);
+    
     row_validate(grid, errors);
     col_validate(grid, errors);
 
