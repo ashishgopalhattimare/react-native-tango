@@ -26,7 +26,7 @@ const Tango = () => {
     errors: null,
   });
 
-  const { goBack, saveHistory, clearHistory } = useGameHistory<GameModel>();
+  const { goBack, saveHistory, clearHistory, hasHistory } = useGameHistory<GameModel>();
 
   const validate = useValidate();
 
@@ -54,6 +54,7 @@ const Tango = () => {
   };
 
   const errors = data.errors ? Object.values(data.errors) : [];
+  const undoDisabled = !hasHistory();
 
   return (
     <ThemedScrollView>
@@ -72,7 +73,7 @@ const Tango = () => {
           <TangoGrid data={data.grid} onChange={onValidate} />
         </ThemedView>
         <ThemedView style={styles.gameActions}>
-          <ThemedButton title="Undo" onClick={onUndoHandler} fullWidth />
+          <ThemedButton title="Undo" onClick={onUndoHandler} fullWidth disabled={undoDisabled} />
           <ThemedButton title="Hint" fullWidth />
         </ThemedView>
         {errors.map((error, index) => (
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   error: {
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: "red",
     borderRadius: 4,
     paddingHorizontal: 20,

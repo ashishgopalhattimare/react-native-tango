@@ -15,6 +15,7 @@ export const ThemedButton = ({
   fullWidth,
   theme = "tertiary",
   style: customStyles,
+  disabled,
   onClick,
 }: Props) => {
   const style = [
@@ -22,9 +23,10 @@ export const ThemedButton = ({
     fullWidth ? styles.fullWidth : undefined,
     styles[theme],
     customStyles,
+    disabled ? { opacity: 0.4 } : undefined,
   ];
   return (
-    <TouchableOpacity style={style} onPress={onClick}>
+    <TouchableOpacity style={style} onPress={onClick} disabled={disabled} accessibilityState={{ disabled: disabled }}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -40,7 +42,7 @@ export const ThemedButtonGraphic = ({
   const style = [styles.button, styles[theme], customStyles];
   const onClickHandler = disabled ? undefined : onClick;
   return (
-    <TouchableOpacity style={style} onPress={onClickHandler}>
+    <TouchableOpacity style={style} onPress={onClickHandler} disabled={disabled} accessibilityState={{ disabled: disabled }}>
       {children}
     </TouchableOpacity>
   );

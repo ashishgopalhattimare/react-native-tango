@@ -19,9 +19,12 @@ export const useGameHistory = <T>() => {
     history.current = [];
   }, []);
 
+  const hasHistory = () => history.current.length > 0;
+
   return {
     goBack,
     saveHistory,
-    clearHistory
+    clearHistory,
+    hasHistory,
   };
 };
