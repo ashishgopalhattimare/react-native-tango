@@ -1,13 +1,21 @@
 import { PropsWithChildren } from "react";
-import { StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
+import { Pressable, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
 
 type ButtonTheme = "primary" | "secondary" | "tertiary";
+type ButtonTag = "Pressable" | "TouchableOpacity";
+
+const ButtonTagMap: Record<ButtonTag, React.ElementType> = {
+  Pressable: Pressable,
+  TouchableOpacity: TouchableOpacity,
+};
+
 type Props = {
   title: string;
   theme?: ButtonTheme;
   fullWidth?: boolean;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   disabled?: boolean;
+  tag?: ButtonTag;
   onClick?: () => void;
 };
 export const ThemedButton = ({
@@ -16,6 +24,7 @@ export const ThemedButton = ({
   theme = "tertiary",
   style: customStyles,
   disabled,
+  tag = "TouchableOpacity",
   onClick,
 }: Props) => {
   const style = [
@@ -25,10 +34,12 @@ export const ThemedButton = ({
     customStyles,
     disabled ? { opacity: 0.4 } : undefined,
   ];
+
+  const Tag = ButtonTagMap[tag];
   return (
-    <TouchableOpacity style={style} onPress={onClick} disabled={disabled} accessibilityState={{ disabled: disabled }}>
+    <Tag style={style} onPress={onClick} disabled={disabled} accessibilityState={{ disabled: disabled }}>
       <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
+    </Tag>
   );
 };
 
@@ -37,14 +48,17 @@ export const ThemedButtonGraphic = ({
   style: customStyles,
   theme = "tertiary",
   disabled,
+  tag = "TouchableOpacity",
   children,
 }: PropsWithChildren<Omit<Props, "title" | "fullWidth">>) => {
   const style = [styles.button, styles[theme], customStyles];
   const onClickHandler = disabled ? undefined : onClick;
+
+  const Tag = ButtonTagMap[tag];
   return (
-    <TouchableOpacity style={style} onPress={onClickHandler} disabled={disabled} accessibilityState={{ disabled: disabled }}>
+    <Tag style={style} onPress={onClickHandler} disabled={disabled} accessibilityState={{ disabled: disabled }}>
       {children}
-    </TouchableOpacity>
+    </Tag>
   );
 };
 

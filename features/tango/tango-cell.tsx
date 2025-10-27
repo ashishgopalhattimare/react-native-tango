@@ -1,31 +1,36 @@
-import { Image, StyleSheet, ThemedButtonGraphic } from "@/components/react-native";
+import {
+  Image,
+  StyleSheet,
+  ThemedButtonGraphic,
+  ThemedText,
+  ThemedView,
+} from "@/components/react-native";
 import { useLayoutEffect, useState } from "react";
-import type { ImageSourcePropType } from "react-native";
+import { type ImageSourcePropType } from "react-native";
 
 import type { Cell as CellData, CellType } from "@/types/tango";
 
 const images: Record<CellType, ImageSourcePropType | undefined> = {
-  "O": require("@/assets/tango/sun.svg"),
-  "X": require("@/assets/tango/cloud.svg"),
-  "": undefined
-}
+  O: require("@/assets/tango/sun.svg"),
+  X: require("@/assets/tango/cloud.svg"),
+  "": undefined,
+};
 
 type Props = {
   onChange?: (data: CellData, key: CellType) => void;
   data: CellData;
 };
 
-const Cycle: CellType[] = ['', 'O', 'X'];
+const Cycle: CellType[] = ["", "O", "X"];
 
 export const TangoCell = ({ data, onChange }: Props) => {
-
   const [key, setKey] = useState<CellType>("");
 
   useLayoutEffect(() => setKey(data.type), [data.type]);
 
   const onClickHandler = () => {
     const updated_key = Cycle[(Cycle.indexOf(key) + 1) % Cycle.length];
-    
+
     setKey(updated_key);
     onChange?.(data, updated_key);
   };
@@ -33,21 +38,71 @@ export const TangoCell = ({ data, onChange }: Props) => {
   const image = images[key];
 
   return (
-    <ThemedButtonGraphic style={styles.cell}  theme={data.editable ? "tertiary" : "secondary"} disabled={!data.editable} onClick={onClickHandler}>
-      <Image source={image} style={styles.img} resizeMode="contain" />
-    </ThemedButtonGraphic>
+    <ThemedView style={styles.cellLayout}>
+      <ThemedButtonGraphic
+        tag="Pressable"
+        style={[styles.cellLayout, styles.cell]}
+        theme={data.editable ? "tertiary" : "secondary"}
+        disabled={!data.editable}
+        onClick={onClickHandler}
+      >
+        <Image source={image} style={styles.img} resizeMode="contain" />
+      </ThemedButtonGraphic>
+      {data.x_state && (
+        <ThemedText style={[styles.x_overlay, styles.state]} disabled={true}>
+          {data.x_state}
+        </ThemedText>
+      )}
+      {data.y_state && (
+        <ThemedText style={[styles.y_overlay, styles.state]} disabled={true}>
+          {data.y_state}
+        </ThemedText>
+      )}
+    </ThemedView>
   );
 };
 
+const SIZE = 18;
+
 const styles = StyleSheet.create({
-  cell: {
-    borderWidth: 2, borderRadius: 8,
-    margin: 1,
+  cellLayout: {
     flex: 1,
-    paddingBlock: 8, paddingInline: 8,
+  },
+  cell: {
+    borderWidth: 1,
+    borderRadius: 8,
+    margin: 1,
+    paddingBlock: 8,
+    paddingInline: 8,
   },
   img: {
     width: "100%",
     height: "100%",
+    zIndex: 99,
+  },
+  state: {
+    fontSize: 10,
+    fontWeight: "500",
+    fontFamily: "MONOSPACE",
+    backgroundColor: "white",
+    borderWidth: 1,
+    width: SIZE,
+    height: SIZE,
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  x_overlay: {
+    position: "absolute",
+    top: "50%",
+    left: -(SIZE / 2),
+    transform: [{ translateY: "-50%" }],
+  },
+  y_overlay: {
+    position: "absolute",
+    left: "50%",
+    top: -(SIZE / 2),
+    transform: [{ translateX: "-50%" }],
   },
 });

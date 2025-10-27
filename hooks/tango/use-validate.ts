@@ -27,13 +27,13 @@ const row_validate = (grid: Grid, errors: Record<string, string>) => {
             if (cell.type === 'X') ++x_count;
             if (cell.type === 'O') ++o_count;
             
-            if (cell.x_state == 'x' && cell.type && grid[i][j+1].type && (cell.type === grid[i][j+1].type)) {
-                cell.isInvalid = grid[i][j+1].isInvalid = true;
+            if (cell.x_state == 'x' && cell.type && grid[i][j-1].type && (cell.type === grid[i][j-1].type)) {
+                cell.isInvalid = grid[i][j-1].isInvalid = true;
 
                 errors["3"] = "Use opposite shapes to separate cells with ✖️";
             }
-            if (cell.x_state == '=' && cell.type && grid[i][j+1].type && (cell.type !== grid[i][j+1].type)) {
-                cell.isInvalid = grid[i][j+1].isInvalid = true;
+            if (cell.x_state == '=' && cell.type && grid[i][j-1].type && (cell.type !== grid[i][j-1].type)) {
+                cell.isInvalid = grid[i][j-1].isInvalid = true;
 
                 errors["4"] = "Use opposite shapes to separate cells with 🟰";
             }
@@ -67,13 +67,13 @@ const col_validate = (grid: Grid, errors: Record<string, string>) => {
             if (cell.type === 'X') ++x_count;
             if (cell.type === 'O') ++o_count;
             
-            if (cell.y_state == 'x' && cell.type && grid[i][j+1].type && (cell.type === grid[i][j+1].type)) {
-                cell.isInvalid = grid[i][j+1].isInvalid = true;
+            if (cell.y_state == 'x' && cell.type && grid[i-1][j].type && (cell.type === grid[i-1][j].type)) {
+                cell.isInvalid = grid[i-1][j].isInvalid = true;
 
                 errors["3"] = "Use opposite shapes to separate cells with ✖️";
             }
-            if (cell.y_state == '=' && cell.type && grid[i][j+1].type && (cell.type !== grid[i][j+1].type)) {
-                cell.isInvalid = grid[i][j+1].isInvalid = true;
+            if (cell.y_state == '=' && cell.type && grid[i-1][j].type && (cell.type !== grid[i-1][j].type)) {
+                cell.isInvalid = grid[i-1][j].isInvalid = true;
 
                 errors["4"] = "Use opposite shapes to separate cells with 🟰";
             }
