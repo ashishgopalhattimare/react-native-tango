@@ -14,8 +14,8 @@ type Props = {
 export const Expando: FC<PropsWithChildren<Props>> = ({ title, children, style }) => {
   const [expanded, setExpanded] = useState(false);
   return (
-    <View>
-      <View style={[styles.header, style]}>
+    <View style={style}>
+      <View style={[styles.header]}>
         <ThemedText size="type-400" type="title">
           {title}
         </ThemedText>
