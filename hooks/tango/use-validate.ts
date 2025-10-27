@@ -10,7 +10,8 @@ import { useCallback, useRef } from 'react';
  * only return the 
  */
 
-type ValidateCallbackType = (response: { data: Grid; n: number, errors: Record<string, string> }) => void;
+type ErrorResponse = Record<string, string>;
+type ValidateCallbackType = (response: { data: Grid; n: number, errors: ErrorResponse, gameOver: boolean }) => void;
 
 const cloneCell = (cell: Cell): Cell => JSON.parse(JSON.stringify(cell));
 const clone = (input: Grid): Grid => input.map(row => row.map(cloneCell));
@@ -21,7 +22,7 @@ const reset = (grid: Grid) => {
     );
 };
 
-const row_validate = (grid: Grid, errors: Record<string, string>) => {
+const row_validate = (grid: Grid, errors: ErrorResponse) => {
     const n = grid.length;
 
     const limit = n/2;
@@ -61,7 +62,7 @@ const row_validate = (grid: Grid, errors: Record<string, string>) => {
     }
 };
 
-const col_validate = (grid: Grid, errors: Record<string, string>) => {
+const col_validate = (grid: Grid, errors: ErrorResponse) => {
     const n = grid.length;
 
     const limit = n/2;
@@ -101,13 +102,30 @@ const col_validate = (grid: Grid, errors: Record<string, string>) => {
     }
 };
 
+/**
+ * When all the cells are filled and no error
+ * @param grid 
+ */
+const hasGameOver = (grid: Grid, errors: ErrorResponse) => {
+  if (Object.entries(errors).length > 0) {
+    return false;
+  }
+
+  for(let i = 0; i < grid.length; ++i) {
+    for(let j = 0; j < grid[i].length; ++j) {
+        if (grid[i][j].type === '') return false;
+    }
+  }
+  return true;
+}
+
 export const useValidate = () => {
   const ref = useRef<number | null>(null);
 
   const validate = useCallback((input: Grid, callback: ValidateCallbackType) => {
     const grid = clone(input);
 
-    const errors = {};
+    const errors: ErrorResponse = {};
     reset(grid);
     
     row_validate(grid, errors);
@@ -116,7 +134,8 @@ export const useValidate = () => {
     callback({
       data: grid,
       n: grid.length,
-      errors: errors
+      errors: errors,
+      gameOver: hasGameOver(grid, errors)
     });
   }, []);
 

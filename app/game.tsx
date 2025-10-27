@@ -2,7 +2,7 @@ import {
   StyleSheet,
   ThemedButton,
   ThemedScrollView,
-  ThemedView,
+  ThemedView
 } from "@/components/react-native";
 import { useRef, useState } from "react";
 
@@ -25,7 +25,8 @@ const Tango = () => {
     errors: null,
   });
 
-  const { goBack, saveHistory, clearHistory, hasHistory } = useGameHistory<GameModel>();
+  const { goBack, saveHistory, clearHistory, hasHistory } =
+    useGameHistory<GameModel>();
 
   const validate = useValidate();
 
@@ -38,10 +39,22 @@ const Tango = () => {
   };
 
   const onValidate = () =>
-    validate(data.grid, ({ data: new_data, errors }) => {
+    validate(data.grid, ({ data: new_data, errors, gameOver }) => {
       const state: GameModel = { grid: new_data, errors };
       saveHistory(state);
       setData(state);
+
+      if (gameOver) {
+        alert("Congratulate!!! You have solved it.");
+        // Alert.alert("Tango Game Over", "Congratulate", [
+        //   {
+        //     text: "Cancel",
+        //   },
+        //   {
+        //     text: "OK",
+        //   },
+        // ]);
+      }
     });
 
   const onUndoHandler = () => {
@@ -72,7 +85,12 @@ const Tango = () => {
           <TangoGrid data={data.grid} onChange={onValidate} />
         </ThemedView>
         <ThemedView style={styles.gameActions}>
-          <ThemedButton title="Undo" onClick={onUndoHandler} fullWidth disabled={undoDisabled} />
+          <ThemedButton
+            title="Undo"
+            onClick={onUndoHandler}
+            fullWidth
+            disabled={undoDisabled}
+          />
           <ThemedButton title="Hint" fullWidth />
         </ThemedView>
         {errors.map((error, index) => (
