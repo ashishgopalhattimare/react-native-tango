@@ -2,14 +2,13 @@ import {
   StyleSheet,
   ThemedButton,
   ThemedScrollView,
-  ThemedText,
   ThemedView,
 } from "@/components/react-native";
 import { useRef, useState } from "react";
 
 import { useGameHistory } from "@/hooks/use-game-history";
 
-import { TangoGrid } from "@/features/tango";
+import { Error, Instructions, TangoGrid } from "@/features/tango";
 import { useValidate } from "@/hooks/tango";
 import { convert, Levels, TangoGrid as TangoGridType } from "@/types/tango";
 import { clone } from "@/utils/clone";
@@ -77,10 +76,9 @@ const Tango = () => {
           <ThemedButton title="Hint" fullWidth />
         </ThemedView>
         {errors.map((error, index) => (
-          <ThemedText key={index} size="type-400" style={styles.error}>
-            {error}
-          </ThemedText>
+          <Error key={index} message={error} />
         ))}
+        <Instructions />
       </ThemedView>
     </ThemedScrollView>
   );
@@ -117,13 +115,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  error: {
-    borderWidth: 1.5,
-    borderColor: "red",
-    borderRadius: 4,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
   },
   main: {},
 });
