@@ -1,7 +1,8 @@
 export { ExternalLink } from "./external-link";
-export { ThemedButton } from "./themed-button";
+export { GridLayout } from "./grid";
+export { ThemedButton, ThemedButtonGraphic } from "./themed-button";
 export { ThemedText, type ThemedTextProps } from "./themed-text";
 export { ThemedView, type ThemedViewProps } from "./themed-view";
 
-export { Image, TouchableHighlight, TouchableOpacity } from "react-native";
+export { Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 

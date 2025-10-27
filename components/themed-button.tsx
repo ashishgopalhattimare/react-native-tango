@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import { StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
 
 type ButtonTheme = "primary" | "secondary" | "tertiary";
@@ -6,50 +7,75 @@ type Props = {
   theme?: ButtonTheme;
   fullWidth?: boolean;
   style?: ViewStyle;
-}
+  disabled?: boolean;
+  onClick?: () => void;
+};
 export const ThemedButton = ({
   title,
   fullWidth,
-  theme = "primary",
-  style: customStyles
+  theme = "tertiary",
+  style: customStyles,
+  onClick,
 }: Props) => {
-    const style = [
-        styles.button,
-        fullWidth ? styles.fullWidth : undefined,
-        styles[theme],
-        customStyles
-    ];
-    return (
-        <TouchableOpacity style={style}>
-            <Text style={styles.text}>{title}</Text>
-        </TouchableOpacity>
-    )
+  const style = [
+    styles.button,
+    fullWidth ? styles.fullWidth : undefined,
+    styles[theme],
+    customStyles,
+  ];
+  return (
+    <TouchableOpacity style={style} onPress={onClick}>
+      <Text style={styles.text}>{title}</Text>
+    </TouchableOpacity>
+  );
 };
+
+export const ThemedButtonGraphic = ({
+  onClick,
+  style: customStyles,
+  theme = "tertiary",
+  disabled,
+  children
+}: PropsWithChildren<Omit<Props, 'title' | 'fullWidth'>>) => {
+  const style = [
+    styles.button,
+    styles[theme],
+    customStyles,
+  ];
+  const onClickHandler = disabled ? undefined : onClick;
+  return (
+    <TouchableOpacity style={style} onPress={onClickHandler}>
+      {children}
+    </TouchableOpacity>
+  );
+}
 
 const styles = StyleSheet.create({
   button: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    borderRadius: 100
+    borderRadius: 100,
+    borderWidth: 1.5,
+    borderColor: "transparent",
   },
   text: {
     textAlign: "center",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   fullWidth: {
-    width: '100%'
+    width: "100%",
   },
   primary: {
     backgroundColor: "blue",
-    color: "white"
+    color: "white",
   },
   secondary: {
-    backgroundColor: "gray",
-    color: "white"
+    backgroundColor: "rgb(215 215 215)",
+    color: "white",
   },
   tertiary: {
-    borderWidth: 2,
+    borderColor: "black",
     backgroundColor: "white",
-    color: "black"
-  }
+    color: "black",
+  },
 });
