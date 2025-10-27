@@ -35,20 +35,16 @@ export const ThemedButtonGraphic = ({
   style: customStyles,
   theme = "tertiary",
   disabled,
-  children
-}: PropsWithChildren<Omit<Props, 'title' | 'fullWidth'>>) => {
-  const style = [
-    styles.button,
-    styles[theme],
-    customStyles,
-  ];
+  children,
+}: PropsWithChildren<Omit<Props, "title" | "fullWidth">>) => {
+  const style = [styles.button, styles[theme], customStyles];
   const onClickHandler = disabled ? undefined : onClick;
   return (
     <TouchableOpacity style={style} onPress={onClickHandler}>
       {children}
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -62,9 +58,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "500",
   },
-  fullWidth: {
-    width: "100%",
-  },
+  fullWidth: { flex: 1 },
   primary: {
     backgroundColor: "blue",
     color: "white",

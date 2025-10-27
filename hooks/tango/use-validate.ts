@@ -30,14 +30,22 @@ const row_validate = (grid: Grid, errors: Record<string, string>) => {
             if (cell.x_state == 'x' && cell.type && grid[i][j+1].type && (cell.type === grid[i][j+1].type)) {
                 cell.isInvalid = grid[i][j+1].isInvalid = true;
 
-                errors["3"] = "Use opposite shapes to separate cells with X";
+                errors["3"] = "Use opposite shapes to separate cells with ✖️";
             }
             if (cell.x_state == '=' && cell.type && grid[i][j+1].type && (cell.type !== grid[i][j+1].type)) {
                 cell.isInvalid = grid[i][j+1].isInvalid = true;
 
-                errors["4"] = "Use opposite shapes to separate cells with =";
+                errors["4"] = "Use opposite shapes to separate cells with 🟰";
             }
         }
+
+        for(let j = 2; j < n; ++j) {
+            if (grid[i][j-2].type && grid[i][j-2].type === grid[i][j-1].type && grid[i][j-1].type === grid[i][j].type) {
+                errors["1"] = "Oops! Only 2 X or O can touch, either vertically or horizontally.";
+                break;
+            }
+        }
+
         // Invalidate the entire row
         if (x_count > limit || o_count > limit) {
             for (let j = 0; j < n; ++j) grid[i][j].isInvalid = true;
@@ -62,14 +70,22 @@ const col_validate = (grid: Grid, errors: Record<string, string>) => {
             if (cell.y_state == 'x' && cell.type && grid[i][j+1].type && (cell.type === grid[i][j+1].type)) {
                 cell.isInvalid = grid[i][j+1].isInvalid = true;
 
-                errors["3"] = "Use opposite shapes to separate cells with X";
+                errors["3"] = "Use opposite shapes to separate cells with ✖️";
             }
             if (cell.y_state == '=' && cell.type && grid[i][j+1].type && (cell.type !== grid[i][j+1].type)) {
                 cell.isInvalid = grid[i][j+1].isInvalid = true;
 
-                errors["4"] = "Use opposite shapes to separate cells with =";
+                errors["4"] = "Use opposite shapes to separate cells with 🟰";
             }
         }
+
+        for(let i = 2; i < n; ++i) {
+            if (grid[i-2][j].type && grid[i-2][j].type === grid[i-1][j].type && grid[i-1][j].type === grid[i][j].type) {
+                errors["1"] = "Oops! Only 2 X or O can touch, either vertically or horizontally.";
+                break;
+            }
+        }
+
         // Invalidate the entire row
         if (x_count > limit || o_count > limit) {
             for (let i = 0; i < n; ++i) grid[i][j].isInvalid = true;
