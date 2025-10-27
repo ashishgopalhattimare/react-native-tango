@@ -1,10 +1,8 @@
 import { StyleSheet, ThemedButton, ThemedView } from "@/components/react-native";
 import { useRef, useState } from "react";
 
-import { useValidate } from "@/hooks/tango/use-validate";
-
-import { TangoGrid } from "@/features/tango/tango-grid";
-
+import { TangoGrid } from "@/features/tango";
+import { useValidate } from "@/hooks/tango";
 import { convert, Levels, TangoGrid as TangoGridType } from "@/types/tango";
 
 const clone = (data: TangoGridType): TangoGridType => JSON.parse(JSON.stringify(data));
