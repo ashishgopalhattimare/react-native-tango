@@ -1,4 +1,4 @@
-type CellNState = "x" | "=";
+export type CellNState = "x" | "=";
 export type CellType = "" | "X" | "O";
 export type Cell = {
   type: CellType;
@@ -8,6 +8,8 @@ export type Cell = {
   isInvalid?: boolean;
 };
 export type TangoGrid = Cell[][];
+
+export const CellTypeList: CellType[] = ["", "O", "X"];
 
 const staticCell = (
   type: CellType,

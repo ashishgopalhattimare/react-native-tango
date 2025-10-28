@@ -1,17 +1,29 @@
 import { FC, PropsWithChildren, useState } from "react";
-import { Image, Pressable, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from "react-native";
 import { ThemedText } from "./themed-text";
+import { IconSymbol } from "./ui/icon-symbol";
 
-const images = {
-  chevron_up: require("@/assets/images/chevron-up.svg"),
-  chevron_down: require("@/assets/images/chevron-down.svg"),
-};
+// const Icon = ({ id, styles }: { id: string }) => {
+//   return (
+//     <IconSymbol color={"white"} name="chevron.right" style={styles} />
+//   )
+// }
 
 type Props = {
   title: string;
   style?: StyleProp<ViewStyle>;
 };
-export const Expando: FC<PropsWithChildren<Props>> = ({ title, children, style }) => {
+export const Expando: FC<PropsWithChildren<Props>> = ({
+  title,
+  children,
+  style,
+}) => {
   const [expanded, setExpanded] = useState(false);
   return (
     <View style={style}>
@@ -20,9 +32,10 @@ export const Expando: FC<PropsWithChildren<Props>> = ({ title, children, style }
           {title}
         </ThemedText>
         <Pressable onPress={() => setExpanded(!expanded)}>
-          <Image
-            source={expanded ? images.chevron_up : images.chevron_down}
-            style={styles.icon}
+          <IconSymbol
+            color="black"
+            size={14}
+            name={expanded ? "chevron.up" : "chevron.down"}
           />
         </Pressable>
       </View>
@@ -32,10 +45,6 @@ export const Expando: FC<PropsWithChildren<Props>> = ({ title, children, style }
 };
 
 const styles = StyleSheet.create({
-  icon: {
-    width: 24,
-    height: 20,
-  },
   header: {
     display: "flex",
     flexDirection: "row",

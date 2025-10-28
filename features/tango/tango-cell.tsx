@@ -2,13 +2,15 @@ import {
   Image,
   StyleSheet,
   ThemedButtonGraphic,
-  ThemedText,
   ThemedView,
 } from "@/components/react-native";
+import { IconSymbol } from "@/components/ui/icon-symbol";
+
 import { useLayoutEffect, useState } from "react";
 import { type ImageSourcePropType } from "react-native";
 
-import type { Cell as CellData, CellType } from "@/types/tango";
+import type { Cell as CellData, CellNState, CellType } from "@/types/tango";
+import { CellTypeList as Cycle } from "@/types/tango";
 
 const images: Record<CellType, ImageSourcePropType | undefined> = {
   O: require("@/assets/tango/sun.svg"),
@@ -21,7 +23,9 @@ type Props = {
   data: CellData;
 };
 
-const Cycle: CellType[] = ["", "O", "X"];
+const StateIcon = ({ id }: { id: CellNState }) => (
+  <IconSymbol name={id === "=" ? "equal" : "xmark"} size={14} color="black" />
+);
 
 const CellConditionState = ({
   x_state,
@@ -31,12 +35,12 @@ const CellConditionState = ({
     <>
       {x_state && (
         <ThemedView style={[conditions.x_overlay, conditions.state]}>
-          <ThemedText size="type-200">{x_state}</ThemedText>
+          <StateIcon id={x_state} />
         </ThemedView>
       )}
       {y_state && (
         <ThemedView style={[conditions.y_overlay, conditions.state]}>
-          <ThemedText size="type-200">{y_state}</ThemedText>
+          <StateIcon id={y_state} />
         </ThemedView>
       )}
     </>
@@ -125,4 +129,4 @@ const conditions = StyleSheet.create({
     top: -(SIZE / 2),
     transform: [{ translateX: "-50%" }],
   },
-})
+});
