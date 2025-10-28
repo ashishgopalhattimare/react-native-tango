@@ -13,7 +13,8 @@ import { Error, Instructions, TangoGrid } from "@/features/tango";
 import { useValidate } from "@/hooks/tango";
 import { useAlert } from "@/hooks/use-alert";
 
-import { convert, getRandomGame, TangoGrid as TangoGridType } from "@/types/tango";
+import { getRandomGame } from "@/mocks/tango";
+import { convert, TangoGrid as TangoGridType } from "@/types/tango";
 import { clone } from "@/utils/clone";
 
 type GameModel = {

@@ -11,7 +11,7 @@
 
  */
 
-export const Levels = {
+const Levels = {
   HARD: [
     [
       ["O", "X", "", "|x", "", "O"],
@@ -28,12 +28,6 @@ export const Levels = {
       ["O", "", "", "||x", "X", ""],
       ["X", "", "", "", "O|x", ""],
       ["", "", "X||=", "", "", ""],
-    ],
-    [
-      ["", "", "", ""],
-      ["", "", "", ""],
-      ["", "", "", ""],
-      ["", "", "", ""]
     ],
     [
       ["X", "", "", "", "O", "O|="],
@@ -69,3 +63,7 @@ export const Levels = {
     ]
   ],
 };
+
+const rand = (n: number) => Math.floor(Math.random() * n); // [0..n-1]
+
+export const getRandomGame = () => Levels.HARD[rand(Levels.HARD.length)];
