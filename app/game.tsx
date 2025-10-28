@@ -13,7 +13,7 @@ import { Error, Instructions, TangoGrid } from "@/features/tango";
 import { useValidate } from "@/hooks/tango";
 import { useAlert } from "@/hooks/use-alert";
 
-import { convert, Levels, TangoGrid as TangoGridType } from "@/types/tango";
+import { convert, getRandomGame, TangoGrid as TangoGridType } from "@/types/tango";
 import { clone } from "@/utils/clone";
 
 type GameModel = {
@@ -22,7 +22,7 @@ type GameModel = {
 };
 
 const Tango = () => {
-  const initiate = useRef<TangoGridType>(convert(Levels.HARD));
+  const initiate = useRef<TangoGridType>(convert(getRandomGame()));
   const [data, setData] = useState<GameModel>({
     grid: clone(initiate.current),
     errors: null,

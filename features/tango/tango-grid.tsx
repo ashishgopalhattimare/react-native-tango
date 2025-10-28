@@ -9,6 +9,8 @@ type Props = {
   onChange?: () => void;
 };
 export const TangoGrid = ({ data, onChange }: Props) => {
+
+  const n = data.length;
   const gridList = useMemo(() => data.flat(), [data]);
 
   const onChangeHandler = (cell: Cell, type: CellType) => {
@@ -19,8 +21,8 @@ export const TangoGrid = ({ data, onChange }: Props) => {
   return (
     <GridLayout
       items={gridList}
-      rows={6}
-      cols={6}
+      rows={n}
+      cols={n}
       keyIdentifier={(item, index) => `${index}-${item.type}`}
       renderItem={(item, index) => (
         <TangoCell data={item} key={index} onChange={onChangeHandler} />

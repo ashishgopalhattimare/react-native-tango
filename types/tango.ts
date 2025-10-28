@@ -1,3 +1,5 @@
+import { Levels } from "@/mocks/tango";
+
 export type CellNState = "x" | "=";
 export type CellType = "" | "X" | "O";
 export type Cell = {
@@ -35,16 +37,7 @@ const editableCell = (
   y_state,
 });
 
-export const Levels = {
-  HARD: [
-    ["O", "X", "", "|x", "", "O"],
-    ["", "", "", "|x", "", "X"],
-    ["", "", "", "", "", ""],
-    ["", "", "||x", "||=", "", ""],
-    ["X", "", "", "|=", "", ""],
-    ["O", "", "", "|x", "X", "X"],
-  ],
-};
+export const getRandomGame = () => Levels.HARD[1];
 
 export const convert = (grid: string[][]): TangoGrid => {
   return grid.map((row) =>
