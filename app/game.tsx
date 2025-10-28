@@ -2,14 +2,17 @@ import {
   StyleSheet,
   ThemedButton,
   ThemedScrollView,
-  ThemedView
+  ThemedView,
 } from "@/components/react-native";
 import { useRef, useState } from "react";
 
 import { useGameHistory } from "@/hooks/use-game-history";
 
 import { Error, Instructions, TangoGrid } from "@/features/tango";
+
 import { useValidate } from "@/hooks/tango";
+import { useAlert } from "@/hooks/use-alert";
+
 import { convert, Levels, TangoGrid as TangoGridType } from "@/types/tango";
 import { clone } from "@/utils/clone";
 
@@ -29,6 +32,7 @@ const Tango = () => {
     useGameHistory<GameModel>();
 
   const validate = useValidate();
+  const { alert } = useAlert();
 
   const onClearHandler = () => {
     clearHistory();
@@ -45,15 +49,7 @@ const Tango = () => {
       setData(state);
 
       if (gameOver) {
-        alert("Congratulate!!! You have solved it.");
-        // Alert.alert("Tango Game Over", "Congratulate", [
-        //   {
-        //     text: "Cancel",
-        //   },
-        //   {
-        //     text: "OK",
-        //   },
-        // ]);
+        alert("Game Over", "Congratulate", [{ text: "OK" }]);
       }
     });
 
