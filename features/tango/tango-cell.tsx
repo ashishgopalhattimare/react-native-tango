@@ -75,7 +75,9 @@ export const TangoCell = ({ data, onChange }: Props) => {
         disabled={!data.editable}
         onClick={onClickHandler}
       >
-        <Image source={image} style={styles.img} resizeMode="contain" />
+        {image && (
+          <Image source={image} style={styles.img} resizeMode="contain" />
+        )}
       </ThemedButtonGraphic>
 
       <CellConditionState x_state={data.x_state} y_state={data.y_state} />
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     paddingInline: 8,
   },
   error_cell: { borderColor: "red" },
-  img: { width: "80%" },
+  img: { width: "80%", height: "80%" },
 });
 
 const conditions = StyleSheet.create({
