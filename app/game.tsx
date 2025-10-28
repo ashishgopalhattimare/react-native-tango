@@ -47,10 +47,6 @@ const Tango = () => {
 
   const onValidate = () =>
     validate(data.grid, ({ data: new_data, errors, gameOver }) => {
-      const state: GameModel = { grid: new_data, errors };
-      saveHistory(state);
-      setData(state);
-
       if (gameOver) {
         const onExitHandler = () => {
           router.canGoBack() ? router.back() : router.replace("/home");
@@ -66,6 +62,11 @@ const Tango = () => {
           ],
           { cancelable: false }
         );
+      }
+      else {
+        const state: GameModel = { grid: new_data, errors };
+        saveHistory(state);
+        setData(state);
       }
     });
 
