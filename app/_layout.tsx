@@ -47,7 +47,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="home"
           options={{
-            headerShown: isNative,
+            headerShown: false,
           }}
         />
       </Stack>
