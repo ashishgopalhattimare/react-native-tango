@@ -4,6 +4,7 @@ import {
   ThemedScrollView,
   ThemedView,
 } from "@/components/react-native";
+import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 
 import { useGameHistory } from "@/hooks/use-game-history";
@@ -31,6 +32,7 @@ const Tango = () => {
 
   const { goBack, saveHistory, clearHistory, hasHistory } =
     useGameHistory<GameModel>();
+  const router = useRouter();
 
   const validate = useValidate();
   const { alert } = useAlert();
@@ -50,7 +52,20 @@ const Tango = () => {
       setData(state);
 
       if (gameOver) {
-        alert("Game Over", "Congratulate", [{ text: "OK" }]);
+        const onExitHandler = () => {
+          router.canGoBack() ? router.back() : router.replace("/home");
+        };
+        alert(
+          "Congratulate",
+          "Thanks for playing this game. Hope you loved it ❤️.❤️",
+          [
+            {
+              text: "Thanks",
+              onPress: onExitHandler,
+            },
+          ],
+          { cancelable: false }
+        );
       }
     });
 
@@ -71,7 +86,11 @@ const Tango = () => {
         <ThemedView style={styles.toolbar}>
           <ThemedButton title="Difficult HARD" theme="secondary" disabled />
           <ThemedView style={styles.toolbarActions}>
-            <ThemedButton title="Clear" theme="tertiary" onClick={onClearHandler} />
+            <ThemedButton
+              title="Clear"
+              theme="tertiary"
+              onClick={onClearHandler}
+            />
           </ThemedView>
         </ThemedView>
         <TangoGrid data={data.grid} onChange={onValidate} />

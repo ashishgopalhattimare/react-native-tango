@@ -64,7 +64,7 @@ export const TangoCell = ({ data, onChange }: Props) => {
   return (
     <ThemedView style={styles.cellLayout}>
       <ThemedButtonGraphic
-        tag="TouchableOpacity"
+        tag="Pressable"
         style={[
           styles.cellLayout,
           styles.cell,
