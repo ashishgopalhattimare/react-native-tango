@@ -27,18 +27,16 @@ export const Expando: FC<PropsWithChildren<Props>> = ({
   const [expanded, setExpanded] = useState(false);
   return (
     <View style={style}>
-      <View style={[styles.header]}>
+      <Pressable style={[styles.header]} onPress={() => setExpanded(!expanded)}>
         <ThemedText size="type-400" type="title">
           {title}
         </ThemedText>
-        <Pressable onPress={() => setExpanded(!expanded)}>
-          <IconSymbol
-            color="black"
-            size={14}
-            name={expanded ? "chevron.up" : "chevron.down"}
-          />
-        </Pressable>
-      </View>
+        <IconSymbol
+          color="black"
+          size={14}
+          name={expanded ? "chevron.up" : "chevron.down"}
+        />
+      </Pressable>
       {expanded && <View style={styles.content}>{children}</View>}
     </View>
   );
