@@ -5,6 +5,7 @@ import {
   ThemedView,
 } from "@/components/react-native";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { Images } from "@/utils/images";
 
 import { useLayoutEffect, useState } from "react";
 import { type ImageSourcePropType } from "react-native";
@@ -13,8 +14,8 @@ import type { Cell as CellData, CellNState, CellType } from "@/types/tango";
 import { CellTypeList as Cycle } from "@/types/tango";
 
 const images: Record<CellType, ImageSourcePropType | undefined> = {
-  O: require("@/assets/tango/sun.svg"),
-  X: require("@/assets/tango/cloud.svg"),
+  O: Images.SUN,
+  X: Images.CLOUD,
   "": undefined,
 };
 
@@ -64,7 +65,7 @@ export const TangoCell = ({ data, onChange }: Props) => {
   return (
     <ThemedView style={styles.cellLayout}>
       <ThemedButtonGraphic
-        tag="TouchableOpacity"
+        tag="Pressable"
         style={[
           styles.cellLayout,
           styles.cell,
@@ -100,8 +101,7 @@ const styles = StyleSheet.create({
   },
   img: {
     width: "100%",
-    height: "100%",
-    zIndex: 99,
+    height: "100%"
   },
 });
 
