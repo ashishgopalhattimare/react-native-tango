@@ -48,6 +48,9 @@ const row_validate = (grid: Grid, errors: ErrorResponse) => {
 
         for(let j = 2; j < n; ++j) {
             if (grid[i][j-2].type && grid[i][j-2].type === grid[i][j-1].type && grid[i][j-1].type === grid[i][j].type) {
+                for(let _j = j-2; _j <= j; ++_j) {
+                    grid[i][_j].isInvalid = true;
+                }
                 errors["1"] = "Oops! Only 2 X or O can touch, either vertically or horizontally.";
                 break;
             }
@@ -88,6 +91,9 @@ const col_validate = (grid: Grid, errors: ErrorResponse) => {
 
         for(let i = 2; i < n; ++i) {
             if (grid[i-2][j].type && grid[i-2][j].type === grid[i-1][j].type && grid[i-1][j].type === grid[i][j].type) {
+                for(let _i = i-2; _i <= j; ++_i) {
+                    grid[_i][j].isInvalid = true;
+                }
                 errors["1"] = "Oops! Only 2 X or O can touch, either vertically or horizontally.";
                 break;
             }
