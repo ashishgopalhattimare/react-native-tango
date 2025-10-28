@@ -91,7 +91,7 @@ const col_validate = (grid: Grid, errors: ErrorResponse) => {
 
         for(let i = 2; i < n; ++i) {
             if (grid[i-2][j].type && grid[i-2][j].type === grid[i-1][j].type && grid[i-1][j].type === grid[i][j].type) {
-                for(let _i = i-2; _i <= j; ++_i) {
+                for(let _i = i-2; _i <= i; ++_i) {
                     grid[_i][j].isInvalid = true;
                 }
                 errors["1"] = "Oops! Only 2 X or O can touch, either vertically or horizontally.";

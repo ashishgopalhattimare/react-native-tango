@@ -21,7 +21,9 @@ const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaProvider>
-        <SafeAreaView style={styles.container}>{children}</SafeAreaView>
+        <SafeAreaView style={styles.container} edges={{ top: "off", bottom: "additive" }}>
+          {children}
+        </SafeAreaView>
         <StatusBar style="auto" />
       </SafeAreaProvider>
     </ThemeProvider>
