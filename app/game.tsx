@@ -70,16 +70,10 @@ const Tango = () => {
         <ThemedView style={styles.toolbar}>
           <ThemedButton title="Difficult HARD" theme="secondary" />
           <ThemedView style={styles.toolbarActions}>
-            <ThemedButton
-              title="Clear"
-              theme="tertiary"
-              onClick={onClearHandler}
-            />
+            <ThemedButton title="Clear" theme="tertiary" onClick={onClearHandler} />
           </ThemedView>
         </ThemedView>
-        <ThemedView>
-          <TangoGrid data={data.grid} onChange={onValidate} />
-        </ThemedView>
+        <TangoGrid data={data.grid} onChange={onValidate} />
         <ThemedView style={styles.gameActions}>
           <ThemedButton
             title="Undo"
