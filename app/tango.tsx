@@ -11,7 +11,7 @@ import {
 export const logo = require("@/assets/images/tango-logo.png");
 
 const backgroundConfig: LinearGradientProps = {
-  colors: ["#0b0b0b", "#1a1a1a", "#2a2a2a"],
+  colors: ["#161b24ff", "#212936ff", "#3a4a63ff"],
   start: { x: 0.5, y: 1 },
   end: { x: 0.5, y: 0 }
 };
