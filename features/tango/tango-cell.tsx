@@ -23,6 +23,26 @@ type Props = {
 
 const Cycle: CellType[] = ["", "O", "X"];
 
+const CellConditionState = ({
+  x_state,
+  y_state,
+}: Pick<CellData, "x_state" | "y_state">) => {
+  return (
+    <>
+      {x_state && (
+        <ThemedView style={[conditions.x_overlay, conditions.state]}>
+          <ThemedText size="type-200">{x_state}</ThemedText>
+        </ThemedView>
+      )}
+      {y_state && (
+        <ThemedView style={[conditions.y_overlay, conditions.state]}>
+          <ThemedText size="type-200">{y_state}</ThemedText>
+        </ThemedView>
+      )}
+    </>
+  );
+};
+
 export const TangoCell = ({ data, onChange }: Props) => {
   const [key, setKey] = useState<CellType>("");
 
@@ -40,7 +60,7 @@ export const TangoCell = ({ data, onChange }: Props) => {
   return (
     <ThemedView style={styles.cellLayout}>
       <ThemedButtonGraphic
-        tag="Pressable"
+        tag="TouchableOpacity"
         style={[
           styles.cellLayout,
           styles.cell,
@@ -52,16 +72,8 @@ export const TangoCell = ({ data, onChange }: Props) => {
       >
         <Image source={image} style={styles.img} resizeMode="contain" />
       </ThemedButtonGraphic>
-      {data.x_state && (
-        <ThemedText size="type-200" style={[styles.x_overlay, styles.state]}>
-          {data.x_state}
-        </ThemedText>
-      )}
-      {data.y_state && (
-        <ThemedText size="type-200" style={[styles.y_overlay, styles.state]}>
-          {data.y_state}
-        </ThemedText>
-      )}
+
+      <CellConditionState x_state={data.x_state} y_state={data.y_state} />
     </ThemedView>
   );
 };
@@ -87,15 +99,19 @@ const styles = StyleSheet.create({
     height: "100%",
     zIndex: 99,
   },
+});
+
+const conditions = StyleSheet.create({
   state: {
     backgroundColor: "white",
     borderWidth: 1,
     width: SIZE,
     height: SIZE,
-    
+
     textAlign: "center",
     display: "flex",
     justifyContent: "center",
+    alignItems: "center",
   },
   x_overlay: {
     position: "absolute",
@@ -109,4 +125,4 @@ const styles = StyleSheet.create({
     top: -(SIZE / 2),
     transform: [{ translateX: "-50%" }],
   },
-});
+})
