@@ -1,10 +1,10 @@
 import { PropsWithChildren } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 export const ThemedScrollView = ({ children }: PropsWithChildren) => {
   return Platform.select({
-    android: <View style={[{ overflow: 'scroll' }]}>{children}</View>,
-    ios: <View style={[{ overflow: 'scroll' }]}>{children}</View>,
+    android: <View style={styles.native}>{children}</View>,
+    ios: <View style={styles.native}>{children}</View>,
     default: (
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         {children}
@@ -12,3 +12,10 @@ export const ThemedScrollView = ({ children }: PropsWithChildren) => {
     ),
   });
 };
+
+const styles = StyleSheet.create({
+  native: {
+    overflow: "scroll",
+    flex: 1
+  }
+});
