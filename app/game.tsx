@@ -62,12 +62,11 @@ const Tango = () => {
           ],
           { cancelable: false }
         );
+        return;
       }
-      else {
-        const state: GameModel = { grid: response.data, errors: response.errors };
-        saveHistory(state);
-        setData(state);
-      }
+      const state: GameModel = { grid: response.data, errors: response.errors };
+      saveHistory(state);
+      setData(state);
     });
 
   const onUndoHandler = () => {
