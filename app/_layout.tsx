@@ -1,17 +1,20 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { FC, PropsWithChildren } from "react";
+
 import { Platform, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import "react-native-reanimated";
 
+import {
+  DarkTheme,
+  DefaultTheme,
+  HeaderBackButton,
+  ThemeProvider,
+} from "@/components/react-navigation";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+
+import "react-native-reanimated";
 
 const Providers: FC<PropsWithChildren> = ({ children }) => {
   const colorScheme = useColorScheme();
@@ -32,10 +35,14 @@ export default function RootLayout() {
     <Providers>
       <Stack initialRouteName="home">
         <Stack.Screen
-          name="home"
-          options={{
+          name="game"
+          options={({ navigation }) => ({
             headerShown: isNative,
-          }}
+            title: "Lets Play Tango!!!",
+            headerLeft: () => (
+              <HeaderBackButton onPress={() => navigation.goBack()} />
+            ),
+          })}
         />
         <Stack.Screen
           name="home"

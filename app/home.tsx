@@ -1,4 +1,5 @@
 import { LinearGradient, LinearGradientProps } from "expo-linear-gradient";
+import { useRouter } from 'expo-router';
 import { StyleSheet } from "react-native";
 
 import {
@@ -17,6 +18,10 @@ const backgroundConfig: LinearGradientProps = {
 };
 
 export default function TangoHomeScreen() {
+
+  const router = useRouter();
+  const onStartGame = () => router.push("/game");
+
   return (
     <LinearGradient style={styles.container} {...backgroundConfig}>
       <ThemedView style={styles.main} isTransparent>
@@ -32,7 +37,7 @@ export default function TangoHomeScreen() {
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.action} isTransparent>
-        <ThemedButton title="Start game" theme="tertiary" />
+        <ThemedButton title="Start game" theme="tertiary" onClick={onStartGame} />
       </ThemedView>
     </LinearGradient>
   );

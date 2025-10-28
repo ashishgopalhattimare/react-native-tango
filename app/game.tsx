@@ -68,7 +68,7 @@ const Tango = () => {
     <ThemedScrollView>
       <ThemedView style={styles.container}>
         <ThemedView style={styles.toolbar}>
-          <ThemedButton title="Difficult HARD" theme="secondary" />
+          <ThemedButton title="Difficult HARD" theme="secondary" disabled />
           <ThemedView style={styles.toolbarActions}>
             <ThemedButton title="Clear" theme="tertiary" onClick={onClearHandler} />
           </ThemedView>
