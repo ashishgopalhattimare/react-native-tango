@@ -5,7 +5,6 @@ import {
   ThemedView,
 } from "@/components/react-native";
 import { IconSymbol } from "@/components/ui/icon-symbol";
-import { Images } from "@/utils/images";
 
 import { useLayoutEffect, useState } from "react";
 import { type ImageSourcePropType } from "react-native";
@@ -14,8 +13,8 @@ import type { Cell as CellData, CellNState, CellType } from "@/types/tango";
 import { CellTypeList as Cycle } from "@/types/tango";
 
 const images: Record<CellType, ImageSourcePropType | undefined> = {
-  O: Images.SUN,
-  X: Images.CLOUD,
+  O: require("@/assets/tango/sun.png"),
+  X: require("@/assets/tango/cloud.png"),
   "": undefined,
 };
 
@@ -65,10 +64,11 @@ export const TangoCell = ({ data, onChange }: Props) => {
   return (
     <ThemedView style={styles.cellLayout}>
       <ThemedButtonGraphic
-        tag="Pressable"
+        tag="TouchableOpacity"
         style={[
           styles.cellLayout,
           styles.cell,
+          styles.center,
           data.isInvalid ? styles.error_cell : null,
         ]}
         theme={data.editable ? "tertiary" : "secondary"}
@@ -89,6 +89,11 @@ const styles = StyleSheet.create({
   cellLayout: {
     flex: 1,
   },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   cell: {
     borderWidth: 1,
     borderRadius: 8,
@@ -96,13 +101,8 @@ const styles = StyleSheet.create({
     paddingBlock: 8,
     paddingInline: 8,
   },
-  error_cell: {
-    borderColor: "red",
-  },
-  img: {
-    width: "100%",
-    height: "100%"
-  },
+  error_cell: { borderColor: "red" },
+  img: { width: "80%" },
 });
 
 const conditions = StyleSheet.create({

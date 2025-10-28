@@ -1,4 +1,3 @@
-import { Images } from "@/utils/images";
 import { StyleSheet } from "react-native";
 
 import {
@@ -8,7 +7,7 @@ import {
   ThemedView,
 } from "@/components/react-native";
 
-export const logo = Images.TANGO_LOGO;
+export const logo = require("@/assets/images/tango-logo.png");
 
 export default function TangoHomeScreen() {
   return (
