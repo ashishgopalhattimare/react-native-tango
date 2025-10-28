@@ -53,12 +53,12 @@ export const TangoCell = ({ data, onChange }: Props) => {
         <Image source={image} style={styles.img} resizeMode="contain" />
       </ThemedButtonGraphic>
       {data.x_state && (
-        <ThemedText style={[styles.x_overlay, styles.state]}>
+        <ThemedText size="type-200" style={[styles.x_overlay, styles.state]}>
           {data.x_state}
         </ThemedText>
       )}
       {data.y_state && (
-        <ThemedText style={[styles.y_overlay, styles.state]}>
+        <ThemedText size="type-200" style={[styles.y_overlay, styles.state]}>
           {data.y_state}
         </ThemedText>
       )}
@@ -88,17 +88,14 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
   state: {
-    fontSize: 10,
-    fontWeight: "500",
-    fontFamily: "MONOSPACE",
     backgroundColor: "white",
     borderWidth: 1,
     width: SIZE,
     height: SIZE,
-
+    
+    textAlign: "center",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
   },
   x_overlay: {
     position: "absolute",
