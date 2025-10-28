@@ -23,7 +23,7 @@ export default function TangoHomeScreen() {
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.action}>
-        <ThemedButton title="Start game" fullWidth theme="tertiary" />
+        <ThemedButton title="Start game" theme="tertiary" />
       </ThemedView>
     </ThemedView>
   );
