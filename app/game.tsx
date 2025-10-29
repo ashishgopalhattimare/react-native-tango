@@ -2,7 +2,8 @@ import {
   StyleSheet,
   ThemedButton,
   ThemedScrollView,
-  ThemedView,
+  ThemedText,
+  ThemedView
 } from "@/components/react-native";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
@@ -13,6 +14,7 @@ import { Error, Instructions, TangoGrid } from "@/features/tango";
 
 import { useValidate } from "@/hooks/tango";
 import { useAlert } from "@/hooks/use-alert";
+import { useTimer } from "@/hooks/use-timer";
 
 import { getRandomGame } from "@/mocks/tango";
 import { convert, TangoGrid as TangoGridType } from "@/types/tango";
@@ -30,6 +32,8 @@ const Tango = () => {
     errors: null,
   });
 
+  const { start: startTimer, stop: stopTimer, time: gameTime } = useTimer();
+
   const { goBack, saveHistory, clearHistory, hasHistory } =
     useGameHistory<GameModel>();
   const router = useRouter();
@@ -45,9 +49,12 @@ const Tango = () => {
     });
   };
 
-  const onValidate = () =>
+  const onValidate = () => {
+    startTimer();
     validate(data.grid, (response) => {
       if (response.gameOver) {
+        stopTimer();
+        
         const onExitHandler = () => {
           router.canGoBack() ? router.back() : router.replace("/home");
         };
@@ -68,6 +75,7 @@ const Tango = () => {
       saveHistory(state);
       setData(state);
     });
+  }
 
   const onUndoHandler = () => {
     const prev = goBack();
@@ -84,14 +92,17 @@ const Tango = () => {
     <ThemedScrollView>
       <ThemedView style={styles.container}>
         <ThemedView style={styles.toolbar}>
-          <ThemedButton title="Difficult HARD" theme="secondary" disabled />
-          <ThemedView style={styles.toolbarActions}>
-            <ThemedButton
+          <ThemedView style={styles.toolbarSection}>
+            <ThemedButton title="Difficult HARD" theme="secondary" disabled />
+            <ThemedText size="type-600" type="defaultSemiBold">
+              {gameTime}sec
+            </ThemedText>
+          </ThemedView>
+          <ThemedButton
               title="Clear"
               theme="tertiary"
               onClick={onClearHandler}
             />
-          </ThemedView>
         </ThemedView>
         <TangoGrid data={data.grid} onChange={onValidate} />
         <ThemedView style={styles.gameActions}>
@@ -129,10 +140,11 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 20,
   },
-  toolbarActions: {
+  toolbarSection: {
     display: "flex",
     gap: 12,
     flexDirection: "row",
+    alignItems: "center"
   },
   gameActions: {
     display: "flex",

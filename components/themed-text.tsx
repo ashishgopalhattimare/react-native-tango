@@ -2,12 +2,14 @@ import { StyleSheet, Text, type TextProps } from 'react-native';
 
 import { useThemeColor } from '@/hooks/use-theme-color';
 
-type TextSize = "type-200" | "type-300" | "type-400";
+type TextSize = "type-200" | "type-300" | "type-400" | "type-500" | "type-600";
 const TextSizeMapper : Record<TextSize, number> = {
   "type-200": 10,
   "type-300": 12,
-  "type-400": 14
-}
+  "type-400": 14,
+  "type-500": 16,
+  "type-600": 18,
+};
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
