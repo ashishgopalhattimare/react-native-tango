@@ -52,8 +52,8 @@ const Tango = () => {
           router.canGoBack() ? router.back() : router.replace("/home");
         };
         alert(
-          "Congratulate",
-          "Thanks for playing this game. Hope you loved it ❤️.❤️",
+          "Puzzle Complete!",
+          "Congratulations on completing the game. Hope you loved it ❤️.❤️",
           [
             {
               text: "Thanks",
