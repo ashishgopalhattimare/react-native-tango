@@ -96,20 +96,11 @@ const Tango = () => {
               {gameTime}sec
             </ThemedText>
           </ThemedView>
-          <ThemedButton
-              title="Clear"
-              theme="tertiary"
-              onClick={onClearHandler}
-            />
+          <ThemedButton title="Clear" theme="tertiary" onClick={onClearHandler} />
         </ThemedView>
         <TangoGrid data={data.grid} onChange={onValidate} />
         <ThemedView style={styles.gameActions}>
-          <ThemedButton
-            title="Undo"
-            onClick={onUndoHandler}
-            fullWidth
-            disabled={undoDisabled}
-          />
+          <ThemedButton title="Undo" onClick={onUndoHandler} fullWidth disabled={undoDisabled} />
           <ThemedButton title="Hint" fullWidth />
         </ThemedView>
         {errors.map((error, index) => (
