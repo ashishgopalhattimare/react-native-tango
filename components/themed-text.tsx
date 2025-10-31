@@ -1,8 +1,16 @@
-import { StyleSheet, Text, TextStyle, type TextProps } from 'react-native';
+import { StyleSheet, Text, TextStyle, type TextProps } from "react-native";
 
-import { useThemeColor } from '@/hooks/use-theme-color';
+import { useThemeColor } from "@/hooks/use-theme-color";
 
-type TextSize = "type-200" | "type-300" | "type-400" | "type-500" | "type-600" | "type-700" | "type-800" | "type-900";
+type TextSize =
+  | "type-200"
+  | "type-300"
+  | "type-400"
+  | "type-500"
+  | "type-600"
+  | "type-700"
+  | "type-800"
+  | "type-900";
 const TextSizeMapper: Record<TextSize, TextStyle> = {
   "type-200": { fontSize: 10, lineHeight: 15 },
   "type-300": { fontSize: 12, lineHeight: 18 },
@@ -17,7 +25,7 @@ const TextSizeMapper: Record<TextSize, TextStyle> = {
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
   size?: TextSize;
 };
 
@@ -26,22 +34,22 @@ export function ThemedText({
   lightColor,
   darkColor,
   size,
-  type = 'default',
+  type = "default",
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
   return (
     <Text
       style={[
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
+        type === "default" ? styles.default : undefined,
+        type === "title" ? styles.title : undefined,
+        type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
+        type === "subtitle" ? styles.subtitle : undefined,
+        type === "link" ? styles.link : undefined,
         style,
-        size ? TextSizeMapper[size] : undefined
+        size ? TextSizeMapper[size] : undefined,
       ]}
       {...rest}
     />
@@ -50,22 +58,22 @@ export function ThemedText({
 
 const styles = StyleSheet.create({
   default: {
-    ...TextSizeMapper['type-500']
+    ...TextSizeMapper["type-500"],
   },
   defaultSemiBold: {
-    ...TextSizeMapper['type-500'],
-    fontWeight: '500',
+    ...TextSizeMapper["type-500"],
+    fontWeight: "500",
   },
   title: {
-    ...TextSizeMapper['type-900'],
-    fontWeight: 'bold'
+    ...TextSizeMapper["type-900"],
+    fontWeight: "bold",
   },
   subtitle: {
-    ...TextSizeMapper['type-700'],
-    fontWeight: 'normal',
+    ...TextSizeMapper["type-700"],
+    fontWeight: "normal",
   },
   link: {
-    ...TextSizeMapper['type-500'],
-    color: '#0a7ea4',
+    ...TextSizeMapper["type-500"],
+    color: "#0a7ea4",
   },
 });
