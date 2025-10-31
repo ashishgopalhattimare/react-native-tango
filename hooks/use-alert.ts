@@ -22,7 +22,5 @@ export const useAlert = () => {
     []
   );
 
-  return {
-    alert: alertHandler,
-  };
+  return alertHandler
 };

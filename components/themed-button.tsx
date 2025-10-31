@@ -64,11 +64,15 @@ export const ThemedButtonGraphic = ({
 
 const styles = StyleSheet.create({
   button: {
+    display: 'flex',
+    justifyContent: 'center',
+    fontSize: 14,
+
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 100,
     borderWidth: 1.5,
-    borderColor: "transparent",
+    minHeight: 48,
   },
   text: {
     textAlign: "center",

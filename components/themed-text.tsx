@@ -1,14 +1,17 @@
-import { StyleSheet, Text, type TextProps } from 'react-native';
+import { StyleSheet, Text, TextStyle, type TextProps } from 'react-native';
 
 import { useThemeColor } from '@/hooks/use-theme-color';
 
-type TextSize = "type-200" | "type-300" | "type-400" | "type-500" | "type-600";
-const TextSizeMapper : Record<TextSize, number> = {
-  "type-200": 10,
-  "type-300": 12,
-  "type-400": 14,
-  "type-500": 16,
-  "type-600": 18,
+type TextSize = "type-200" | "type-300" | "type-400" | "type-500" | "type-600" | "type-700" | "type-800" | "type-900";
+const TextSizeMapper: Record<TextSize, TextStyle> = {
+  "type-200": { fontSize: 10, lineHeight: 15 },
+  "type-300": { fontSize: 12, lineHeight: 18 },
+  "type-400": { fontSize: 14, lineHeight: 21 },
+  "type-500": { fontSize: 16, lineHeight: 24 },
+  "type-600": { fontSize: 18, lineHeight: 27 },
+  "type-700": { fontSize: 20, lineHeight: 30 },
+  "type-800": { fontSize: 30, lineHeight: 40 },
+  "type-900": { fontSize: 32, lineHeight: 40 },
 };
 
 export type ThemedTextProps = TextProps & {
@@ -38,7 +41,7 @@ export function ThemedText({
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'link' ? styles.link : undefined,
         style,
-        size ? { fontSize: TextSizeMapper[size], lineHeight: 16 } : undefined
+        size ? TextSizeMapper[size] : undefined
       ]}
       {...rest}
     />
@@ -47,26 +50,22 @@ export function ThemedText({
 
 const styles = StyleSheet.create({
   default: {
-    fontSize: 16,
-    lineHeight: 24,
+    ...TextSizeMapper['type-500']
   },
   defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
+    ...TextSizeMapper['type-500'],
+    fontWeight: '500',
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
+    ...TextSizeMapper['type-900'],
+    fontWeight: 'bold'
   },
   subtitle: {
-    fontSize: 20,
+    ...TextSizeMapper['type-700'],
     fontWeight: 'normal',
   },
   link: {
-    lineHeight: 30,
-    fontSize: 16,
+    ...TextSizeMapper['type-500'],
     color: '#0a7ea4',
   },
 });

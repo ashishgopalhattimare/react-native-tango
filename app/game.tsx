@@ -34,12 +34,10 @@ const Tango = () => {
 
   const { start: startTimer, stop: stopTimer, time: gameTime } = useTimer();
 
-  const { goBack, saveHistory, clearHistory, hasHistory } =
-    useGameHistory<GameModel>();
+  const { goBack, saveHistory, clearHistory, hasHistory } = useGameHistory<GameModel>();
   const router = useRouter();
-
   const validate = useValidate();
-  const { alert } = useAlert();
+  const alert = useAlert();
 
   const onClearHandler = () => {
     clearHistory();
