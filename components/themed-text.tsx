@@ -22,15 +22,16 @@ const TextSizeMapper: Record<TextSize, TextStyle> = {
   "type-900": { fontSize: 32, lineHeight: 40 },
 };
 
+type TextType = "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
+type StyleSheetRecordType = Record<TextType, TextStyle>;
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
+  type?: TextType;
   size?: TextSize;
 };
 
 export function ThemedText({
-  style,
   lightColor,
   darkColor,
   size,
@@ -43,12 +44,7 @@ export function ThemedText({
     <Text
       style={[
         { color },
-        type === "default" ? styles.default : undefined,
-        type === "title" ? styles.title : undefined,
-        type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
-        type === "subtitle" ? styles.subtitle : undefined,
-        type === "link" ? styles.link : undefined,
-        style,
+        styles[type],
         size ? TextSizeMapper[size] : undefined,
       ]}
       {...rest}
@@ -56,7 +52,7 @@ export function ThemedText({
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create<StyleSheetRecordType>({
   default: {
     ...TextSizeMapper["type-500"],
   },
