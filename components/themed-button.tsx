@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import { Pressable, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 
 import { ButtonThemeToStyleMapper as ThemeStyles } from "./styles";
-import { ThemedText } from './themed-text';
+import { ThemedText } from "./themed-text";
 import { ButtonTag, ButtonTheme } from "./types";
 
 const ButtonTagMap: Record<ButtonTag, React.ElementType> = {
@@ -54,11 +54,7 @@ export const ThemedButtonGraphic = ({
   tag = "TouchableOpacity",
   children,
 }: PropsWithChildren<Omit<Props, "title" | "fullWidth">>) => {
-  const style = [
-    styles.button,
-    ThemeStyles[theme],
-    customStyles
-  ];
+  const style = [styles.button, ThemeStyles[theme], customStyles];
   const onClickHandler = disabled ? undefined : onClick;
 
   const Tag = ButtonTagMap[tag];
@@ -71,9 +67,9 @@ export const ThemedButtonGraphic = ({
 
 const styles = StyleSheet.create({
   button: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
 
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -81,5 +77,5 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     minHeight: 48,
   },
-  fullWidth: { flex: 1 }
+  fullWidth: { flex: 1 },
 });
