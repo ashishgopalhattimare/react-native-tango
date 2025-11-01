@@ -4,7 +4,6 @@ import { useThemeColor } from "@/hooks/use-theme-color";
 import { TextSizeToStyleMapper as TextSizeMapper } from "./styles";
 import { TextSize, TextType } from "./types";
 
-
 type StyleSheetRecordType = Record<TextType, TextStyle>;
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
@@ -24,11 +23,7 @@ export function ThemedText({
 
   return (
     <Text
-      style={[
-        { color },
-        styles[type],
-        size ? TextSizeMapper[size] : undefined,
-      ]}
+      style={[{ color }, styles[type], size ? TextSizeMapper[size] : undefined]}
       {...rest}
     />
   );
