@@ -1,8 +1,9 @@
 import { PropsWithChildren } from "react";
-import { Pressable, StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
+import { Pressable, StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 
-type ButtonTheme = "primary" | "secondary" | "tertiary";
-type ButtonTag = "Pressable" | "TouchableOpacity";
+import { ButtonThemeToStyleMapper as ThemeStyles } from "./styles";
+import { ThemedText } from './themed-text';
+import { ButtonTag, ButtonTheme } from "./types";
 
 const ButtonTagMap: Record<ButtonTag, React.ElementType> = {
   Pressable: Pressable,
@@ -30,7 +31,7 @@ export const ThemedButton = ({
   const style = [
     styles.button,
     fullWidth ? styles.fullWidth : undefined,
-    styles[theme],
+    ThemeStyles[theme],
     customStyles,
     disabled ? { opacity: 0.4 } : undefined,
   ];
@@ -38,7 +39,9 @@ export const ThemedButton = ({
   const Tag = ButtonTagMap[tag];
   return (
     <Tag style={style} onPress={onClick} disabled={disabled} accessibilityState={{ disabled: disabled }}>
-      <Text style={styles.text}>{title}</Text>
+      <ThemedText type="defaultSemiBold" size="type-400">
+        {title}
+      </ThemedText>
     </Tag>
   );
 };
@@ -51,7 +54,11 @@ export const ThemedButtonGraphic = ({
   tag = "TouchableOpacity",
   children,
 }: PropsWithChildren<Omit<Props, "title" | "fullWidth">>) => {
-  const style = [styles.button, styles[theme], customStyles];
+  const style = [
+    styles.button,
+    ThemeStyles[theme],
+    customStyles
+  ];
   const onClickHandler = disabled ? undefined : onClick;
 
   const Tag = ButtonTagMap[tag];
@@ -66,7 +73,7 @@ const styles = StyleSheet.create({
   button: {
     display: 'flex',
     justifyContent: 'center',
-    fontSize: 14,
+    alignItems: 'center',
 
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -74,22 +81,5 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     minHeight: 48,
   },
-  text: {
-    textAlign: "center",
-    fontWeight: "500",
-  },
-  fullWidth: { flex: 1 },
-  primary: {
-    backgroundColor: "blue",
-    color: "white",
-  },
-  secondary: {
-    backgroundColor: "rgb(215 215 215)",
-    color: "white",
-  },
-  tertiary: {
-    borderColor: "black",
-    backgroundColor: "white",
-    color: "black",
-  },
+  fullWidth: { flex: 1 }
 });
